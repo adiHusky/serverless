@@ -28,7 +28,9 @@ exports.handler = (event, context, callback) => {
             let isPresent = false;
             if (data1.Item == null || data1.Item == undefined) {
                 isPresent = false;
-            } 
+            } else {	
+                isPresent = true;	
+            }
             if (!isPresent) {
                 let currentTime = new Date().getTime();
                 let ttl = process.env.timeToLive * 60 * 1000;
