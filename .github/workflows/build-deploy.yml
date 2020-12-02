@@ -1,0 +1,42 @@
+name: build-deploy-lambda
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  deploy:
+    name: build-deploy-lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name : Install AWS CLI
+        run: |
+          python --version
+          cat /etc/issue
+          sudo apt-get update -y
+          sudo apt-get install -y python-pip
+          sudo pip install awscli pyrsistent==0.16.0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Zip Artifact
+        run: |
+          zip csye6225-lambda-${{ github.run_number }}.zip index.js
+
+      - name: Copy to S3
+        run: |
+          aws s3 cp csye6225-lambda-${{ github.run_number }}.zip s3://${{ secrets.S3_LAMBDA_BUCKET }}/csye6225-lambda-${{ github.run_number }}.zip
+
+      - name: Update Lambda Function
+        run: |
+          aws lambda update-function-code --function-name sns_lambda_email_function --region ${{ secrets.AWS_REGION }} --zip-file fileb://csye6225-lambda-${{ github.run_number }}.zip
