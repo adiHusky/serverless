@@ -31,7 +31,7 @@ jobs:
 
       - name: Zip Artifact
         run: |
-          zip csye6225-lambda-${{ github.run_number }}.zip index.js
+          zip csye6225-lambda-${{ github.run_number }}.zip function index.js
 
       - name: Copy to S3
         run: |
