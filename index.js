@@ -68,7 +68,7 @@ exports.handler = (event, context, callback) => {
                                 Body: {
                                     Text: {
                                         Charset: "UTF-8",
-                                        Data:`\n`+params.Item.messageText+`\n Question ID: `+params.Item.questionId+`\n Answer ID`+params.Item.answerId+`\n`+params.Item.answerText+`\n User ID`+params.Item.userID+`\n User name:`+params.Item.userName+`\n Http Link`+params.Item.httpLink
+                                        Data:`\n`+params.Item.messageText+`\n Question ID: `+params.Item.questionId+`\n Answer ID: `+params.Item.answerId+`\n Answer Text: `+params.Item.answerText+`\n User ID: `+params.Item.userID+`\n User name: `+params.Item.userName+`\n Http Link: `+params.Item.httpLink
                                     }
                                 },
                                 Subject: {
