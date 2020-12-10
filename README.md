@@ -9,5 +9,7 @@ This lambda function is used to trigger email when a SNS is published from main 
 #lambda function implementation
 
 Through CICD Pipeline any code change push to main branch will trigger ghactions which will 
-create an artifact in s3 and then get uploaded to Lambda function 
+create an artifact in s3 and then get uploaded to Lambda function
+
+The links are https secured!
 
